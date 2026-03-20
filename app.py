@@ -923,12 +923,107 @@ with hcol2:
 nb_model, rf_model, all_syms = train_models()
 
 if not selected_symptoms:
-    st.info("👈 왼쪽 사이드바에서 증상을 검색하거나 선택하면 예측 결과와 인체 해부도가 나타납니다.")
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("지원 질병", "41종")
-    c2.metric("분석 증상", "57개")
-    c3.metric("ML 모델", "NB+RF 앙상블")
-    c4.metric("해부도 부위", "22개")
+    st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+.hero-wrap {
+    max-width: 680px; margin: 48px auto 0; text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.hero-icon { font-size: 68px; line-height: 1; margin-bottom: 20px; }
+.hero-title {
+    font-size: 30px; font-weight: 700; color: #111827;
+    letter-spacing: -0.4px; margin-bottom: 10px;
+}
+.hero-sub {
+    font-size: 15px; color: #6b7280; font-weight: 400;
+    line-height: 1.75; margin-bottom: 36px;
+}
+/* 스텝 */
+.steps-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin-bottom: 40px;
+}
+.step-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.step-dot {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: #f8fafc; border: 1.5px solid #e2e8f0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+}
+.step-tag  { font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing:.06em; text-transform:uppercase; }
+.step-name { font-size: 13px; font-weight: 500; color: #374151; }
+.step-line { width: 36px; height: 1.5px; background: #e5e7eb; margin-bottom: 22px; flex-shrink: 0; }
+/* 통계 pills */
+.pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 36px; }
+.pill {
+    background: white; border: 1px solid #e5e7eb; border-radius: 999px;
+    padding: 7px 18px; display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.pill-v { font-size: 15px; font-weight: 700; color: #111827; }
+.pill-l { font-size: 12px; color: #9ca3af; }
+/* 면책 배너 */
+.disclaimer-hero {
+    display: inline-flex; align-items: flex-start; gap: 9px;
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
+    padding: 12px 20px; font-size: 12px; color: #78350f;
+    max-width: 520px; margin: 0 auto; line-height: 1.6; text-align: left;
+}
+.disclaimer-hero b { display: block; margin-bottom: 2px; }
+</style>
+ 
+<div class="hero-wrap">
+  <div class="hero-icon">🩺</div>
+  <div class="hero-title">증상으로 알아보는 내 몸의 신호</div>
+  <div class="hero-sub">
+    지금 느끼는 증상을 선택하면 AI가 41종 질병 가능성을 분석하고<br>
+    인체 해부도 · 약품 · 치료법을 한눈에 보여드립니다
+  </div>
+ 
+  <div class="steps-row">
+    <div class="step-item">
+      <div class="step-dot">👤</div>
+      <div class="step-tag">Step 1</div>
+      <div class="step-name">성별·연령 입력</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-dot">☑️</div>
+      <div class="step-tag">Step 2</div>
+      <div class="step-name">증상 선택</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-dot">🤖</div>
+      <div class="step-tag">Step 3</div>
+      <div class="step-name">AI 예측 확인</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-dot">🫀</div>
+      <div class="step-tag">Step 4</div>
+      <div class="step-name">해부도 탐색</div>
+    </div>
+  </div>
+ 
+  <div class="pills">
+    <div class="pill"><span class="pill-v">41종</span><span class="pill-l">지원 질병</span></div>
+    <div class="pill"><span class="pill-v">57개</span><span class="pill-l">분석 증상</span></div>
+    <div class="pill"><span class="pill-v">NB+RF</span><span class="pill-l">앙상블 모델</span></div>
+    <div class="pill"><span class="pill-v">24개</span><span class="pill-l">해부도 부위</span></div>
+    <div class="pill"><span class="pill-v">0원</span><span class="pill-l">서버 비용</span></div>
+  </div>
+ 
+  <div class="disclaimer-hero">
+    <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+    <div>
+      <b>의료기기 아님 · 진단 대체 불가</b>
+      본 서비스의 AI 예측 결과는 참고용이며, 정확한 진단은 반드시 전문의에게 받으시기 바랍니다.
+    </div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
     st.stop()
 
 # 예측
